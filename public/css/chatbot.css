@@ -1,0 +1,49 @@
+body {
+    font-family: "Varela Round", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #F69E28;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.content {
+    text-align: center;
+}
+
+.logo {
+    margin-right: 40px;
+    margin-bottom: 20px;
+}
+
+.logo img {
+    border-radius: 60px;
+}
+
+.links a {
+    font-size: 1.25rem;
+    text-decoration: none;
+    color: white;
+    margin: 10px;
+}
+
+/* #botmanWidgetRoot .desktop-closed-message-avatar {
+    background: #2E2E2E !important;
+} */
+
+svg path {
+    fill: #F69E28;
+}
+
+@media all and (max-width: 500px) {
+
+    .links {
+        display: flex;
+        flex-direction: column;
+    }
+}

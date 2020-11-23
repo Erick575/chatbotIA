@@ -1,0 +1,56 @@
+version: "3.7"
+services:
+  mysql:
+    image: mysql:5.7
+    # container_name: mysql
+    ports:
+    - 3306:3306
+    volumes:
+    - dbdata:/var/lib/mysql
+    networks:
+      - backend
+    environment:
+    - MYSQL_ROOT_PASSWORD=secret
+    - MYSQL_DATABASE=homestead
+    - MYSQL_USER=homestead
+    - MYSQL_PASSWORD=secret
+    
+  chat_bot_php:
+    build:
+      context: .
+      dockerfile: "./enviroment/php/Dockerfile"
+      args:
+        PHP_VERSION: 7.3.14
+    depends_on:
+      - mysql
+    environment:
+      - .env
+    networks:
+      - backend
+    tty: true
+    volumes:
+      - ./:/var/www/html/
+    container_name: chat-bot-php
+  chat_bot_apache:
+    build:
+      context: "./enviroment/apache/"
+      args:
+        APACHE_VERSION: 2.4.33
+    depends_on:
+      - chat_bot_php
+    networks:
+      - frontend
+      - backend
+    ports:
+      - "8010:80"
+    volumes:
+      - ./:/var/www/html/
+    container_name: chat-bot-apache
+
+networks:
+  frontend:
+  backend:
+
+volumes:
+  data:
+  dbdata:
